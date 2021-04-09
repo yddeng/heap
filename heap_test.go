@@ -51,5 +51,15 @@ func TestHeap_Fix(t *testing.T) {
 	e1.value = 20
 	h.Fix(e1)
 	fmt.Println(h.Pop(), h.Pop(), h.Pop(), h.Pop())
+}
 
+func TestHeap_Reset(t *testing.T) {
+	h := New()
+
+	h.Push(&HElement{name: "e1", value: 5})
+	h.Push(&HElement{name: "e1", value: 12})
+
+	fmt.Println(h.Len())
+	h.Reset()
+	fmt.Println(h.Len())
 }

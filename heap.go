@@ -22,7 +22,9 @@
 
 package heap
 
-import "container/heap"
+import (
+	"container/heap"
+)
 
 // Element is an element of a heap.
 type Element interface {
@@ -55,8 +57,8 @@ type Heap struct {
 func New() *Heap {
 	h := &Heap{
 		inlineHeap: &inlineHeap{
-			elements: []Element{},
-			elemIdx:  map[Element]int{},
+			elements: make([]Element, 0, 32),
+			elemIdx:  make(map[Element]int, 32),
 		},
 	}
 	return h
@@ -146,6 +148,12 @@ func (h *Heap) Fix(ele Element) {
 	if ok {
 		heap.Fix(h.inlineHeap, i)
 	}
+}
+
+// Reset resets the heap to be empty,
+func (h *Heap) Reset() {
+	h.inlineHeap.elements = h.inlineHeap.elements[0:0]
+	h.inlineHeap.elemIdx = make(map[Element]int, cap(h.inlineHeap.elements))
 }
 
 // PushHeap inserts a copy of another heap at the heap h.
