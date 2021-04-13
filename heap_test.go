@@ -10,7 +10,7 @@ type HElement struct {
 	value int
 }
 
-func (e *HElement) Less(h Element) bool {
+func (e *HElement) Less(h interface{}) bool {
 	return e.value < h.(*HElement).value
 }
 
